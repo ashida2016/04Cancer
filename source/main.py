@@ -32,34 +32,57 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
 
 # 练习一：随机挑选 n 个不重复的物质
 # 示例：假设已经挑选了所有 A 字头的物质
-picked_matter_list = ['Ag', 'AgCl', 'AgNO3', 'Al', 'Al(OH)3', 'Al2(SO4)3', 'Al2O3', 'Al2O3', 'AlCl3', 'Ar']
-print("假设已经有了(%d)个物质已经被挑选掉" % (len(picked_matter_list)))
+picked_formula_list = ['Ag', 'AgCl', 'AgNO3', 'Al', 'Al(OH)3', 'Al2(SO4)3', 'Al2O3', 'Al2O3', 'AlCl3', 'Ar']
+print("假设已经有了(%d)个物质已经被挑选掉" % (len(picked_formula_list)))
 
 print("\n----华丽分割线--：开始挑选.....")
 picker = Picker()
 
 # 使用挑选机随机挑选1个
 print("\n----华丽分割线--：只挑选一个：")
-new_pick = picker.pick_one(picked_matter_list)
+f_new_pick = picker.pick_one(picked_formula_list)
 
 # 使用挑选机继续挑选 n 个
-times = 2
+times = 5
 print("\n----华丽分割线--：使用挑选机继续挑选 (%d) 次 ---" % (times))
 for i in range(times):
-    new_pick = picker.pick_one(picked_matter_list)
-    print("第(%d)次挑选结果：%s" % (i, new_pick))
+    f_new_pick = picker.pick_one(picked_formula_list)
+    print("第(%d)次挑选结果：%s" % (i, f_new_pick))
 
 # 练习二: 通过分子式查找物质的类
 print("\n----华丽分割线--")
 mt = MattersTable()
-picked_matter = mt.get_matter_by_formula('Ag')
-picked_matter.show_myself()
+m_picked = mt.get_matter_by_formula('Ag')
+m_picked.show_myself()
 
 # 练习三：通过分子式获取物质的原子构成（包括数量）
 print("\n----华丽分割线--")
-to_find = 'H2O'
-picked_matter = mt.get_matter_by_formula(to_find)
-print("本物质(%s)由以下内容构成：" % (to_find), end='')
-print(picked_matter.get_elements())
+f_to_find = 'H2O'
+m_picked = mt.get_matter_by_formula(f_to_find)
+print("本物质(%s)由以下内容构成：" % (f_to_find), end='')
+print(m_picked.get_elements())
+
+# 练习四：组合练习一二三
+# 确定挑选次数
+times = 10
+# 准备物质表（物质清单）
+mt = MattersTable()
+# 开始挑选
+print("\n----华丽分割线--：使用挑选机随机挑选 (%d) 次并找出对应的物质 ---" % (times))
+for i in range(times):
+    # 挑选一次
+    f_new_pick = picker.pick_one(picked_formula_list)
+    print("第(%d)次挑选结果是 %s：" % (i+1, f_new_pick))
+    # 用挑选出来的分子式去寻找物质
+    m_picked = mt.get_matter_by_formula(f_new_pick)
+    # m_picked.show_myself()
+    # 列出该物质的原子组成
+    # e_picked = m_picked.get_elements()
+    print("本物质 %s 中文名称(%s), 别名(%s)，构成为：" \
+          % (m_picked.formula, m_picked.name, m_picked.alias), end='')
+    print(m_picked.get_elements())
+
+
+
 
 

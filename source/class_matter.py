@@ -84,7 +84,7 @@ class Matter:
         print("中文名称为(%s)，别名[%s]， 化学分子式为(%s)，化学分子量为(%.2f)"  \
               % (self.name, self.alias, self.formula, self.get_mass()))
 
-        print("本物质的元素构成是：")
+        print("本物质的元素构成是：", end='')
         print(self.get_elements())
 
         print("当前价格为：%.2f 元/吨" % (self.get_price()))

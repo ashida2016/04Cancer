@@ -12,9 +12,6 @@
 
 import random
 
-# 引用物质类
-# from class_matter import Matter
-
 # 引用物质表类
 from class_matters_table import MattersTable
 
@@ -59,7 +56,7 @@ class Picker:
                     # print('Removed: %s' % (picked))
                     self._remained_matters.remove(m)
                 except ValueError:
-                #    #print(m)
+                    # print(m)
                     pass
 
             # 从剩下的物质中随机挑选一个新物质作为返回值
@@ -67,17 +64,17 @@ class Picker:
             total = len(self._remained_matters)
             new_number = random.randrange(0, total)
             rtn = self._remained_matters[new_number]
-            #print("Method-1 picked: %s" % (s))
+            # print("Method-1 picked: %s" % (s))
 
             # 方法二
             rtn = random.choice(self._remained_matters)
-            #print("Method-2 picked: %s" % (s))
+            # print("Method-2 picked: %s" % (s))
 
             # 将新挑选的物质从未挑选列表中转移到已挑选列表
             self._remained_matters.remove(rtn)
             picked_list.append(rtn)
 
-            print("挑选了一个，还剩(%d)个" % (len(self._remained_matters)))
+            # print("挑选了一个，还剩(%d)个" % (len(self._remained_matters)))
 
         return rtn
 
