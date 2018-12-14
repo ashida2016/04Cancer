@@ -26,14 +26,15 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
 # print (sys.stdout.encoding)  # 确认当前的控制台显示字符的编码
 
 
+picker = Picker()
+
 # 练习一：随机挑选 n 个不重复的物质
 # 示例：假设已经挑选了所有 A 字头的物质
-
+"""
 print("\n----华丽分割线1--：开始挑选.....")
 picked_formula_list = ['Ag', 'AgCl', 'AgNO3', 'Al', 'Al(OH)3', 'Al2(SO4)3', 'Al2O3', 'Al2O3', 'AlCl3', 'Ar']
 print("假设已经有了(%d)个物质已经被挑选掉" % (len(picked_formula_list)))
 
-picker = Picker()
 
 # 通过分子式方式，使用挑选机随机挑选1个
 print("\n----华丽分割线2--：只挑选一个：")
@@ -59,6 +60,8 @@ m_picked = mt.get_matter_by_formula(f_to_find)
 print("本物质(%s)由以下内容构成：" % (f_to_find), end='')
 print(m_picked.get_elements())
 
+"""
+
 # 练习四：通过一个 matter 类来使用挑选机
 # m = Matter()
 print("\n----华丽分割线6--")
@@ -70,7 +73,7 @@ print(m_picked.get_elements())
 
 # 练习五：使用挑选机来选取一组 matter
 # 确定挑选次数
-times = 3
+times = 200
 # 准备物质表（物质清单）
 #mt = MattersTable()
 # 已挑选物质存放的列表
@@ -81,13 +84,20 @@ print("\n----华丽分割线7--：使用挑选机随机挑选 (%d) 次并找出�
 for i in range(times):
     # 挑选一次
     m_picked = picker.pick_one_matter(m_already_done)
-    print("第(%d)次挑选结果是 %s：" % (i+1, m_picked.formula))
-    # m_picked.show_myself()
 
-    # 列出该物质的原子组成
-    print("本物质 %s 中文名称(%s), 别名(%s)，构成为：" \
-          % (m_picked.formula, m_picked.name, m_picked.alias), end='')
-    print(m_picked.get_elements())
+    if m_picked.formula != 'Unkown':
+        print("第(%d)次挑选结果是 %s：" % (i+1, m_picked.formula))
+        # m_picked.show_myself()
+
+        # 列出该物质的原子组成
+        print("本物质 %s 中文名称(%s), 别名(%s)，构成为：" \
+              % (m_picked.formula, m_picked.name, m_picked.alias), end='')
+        print(m_picked.get_elements())
+
+        # 将挑选出来的物质放入已被挑选的清单里去
+        # m_already_done.append(m_picked)
+    else:
+        print("第(%d)次挑选时发现已经没物质可挑了。。。。" % (i+1))
 
 # 显示已被挑选的物质
 print("总计挑选了 (%d) 个物质，分别是：" % (len(m_already_done)))

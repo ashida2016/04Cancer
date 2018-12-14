@@ -26,6 +26,10 @@ from class_matters_table import MattersTable
 # 引用挑选机类
 from class_picker import Picker
 
+# 引用组合机类
+from class_combiner import Combiner
+
+
 # 解决输出显示汉字乱码的问题
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
 # print (sys.stdout.encoding)  # 确认当前的控制台显示字符的编码
@@ -52,8 +56,49 @@ for i in range(len(a)):
             print("第(%d)次组合：%s" % (count, result))
 
 
-# 练习三：组合 2 种物质， 计算他们的原子总量
+# 练习三：随意组合指定份数的 2 种不同物质，假设其能起反应，求出其反应后的原子种类及数量
+print("---练习三---")
+# 准备挑选机
 picker = Picker()
-#picked_f_list
+# 已挑选物质存放的列表
+m_already_done = []
 
+# 手工挑选2个物质， 并指定数量， 让其混合后计算所包含的原子种类与数量
+a = 10
+m1 = picker.pick_one_matter(m_already_done)
+b = 10
+m2 = picker.pick_one_matter(m_already_done)
+# print("挑选了 (%d) 个 %s 和 (%d) 个 %s 进行反应：" % (a, m1.formula, b, m2.formula))
+
+# 开始使用组合机
+cmb = Combiner()
+# 自动生成化学反应式
+s = cmb.make_formula_of2(a, m1, b, m2)
+print("反应式： %s " % (s))
+# 列出反应物的原子种类与数量
+after_reaction = cmb.mix2(a, m1, b, m2)
+print("反应后的原子字典为：", end='')
+print(after_reaction)
+
+# 练习四：随意组合 2 种不同物质各n份，假设它们无论如何配比都能起反应，求每次反应后的原子种类及数量
+print("---练习四---")
+m_already_done =[]
+
+a_max = 3
+b_max = 3
+
+for a in range(1, a_max + 1):
+    for b in range(1, b_max + 1):
+        # 随机挑选 2 个不同物质
+        m1 = picker.pick_one_matter(m_already_done)
+        m2 = picker.pick_one_matter(m_already_done)
+
+        # 自动生成化学反应式
+        s = cmb.make_formula_of2(a, m1, b, m2)
+
+        # 列出反应物的原子种类与数量
+        after_reaction = cmb.mix2(a, m1, b, m2)
+
+        print("反应式： %s  --> 反应后的原子字典为：" %(s), end='')
+        print(after_reaction)
 

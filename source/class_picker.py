@@ -24,22 +24,21 @@ from class_matters_table import MattersTable
 class Picker:
 
     # 内部属性
-    _all_f = []
-    _remained_f = []
+    #_all_f = []
+    #_remained_f = []
 
-    _all_m = MattersTable()
+    #_all_m
     # _remained_m = MattersTable()
 
     # 定义构造方法
     def __init__(self):
 
         # 获取所有的物质类，并将其分子式转化为列表，存放在类的内部
-        _all_m = MattersTable()
-
+        self._all_m = MattersTable()
 
         # 获取所有的物质分子式，组成列表
         self._all_f = []
-        for m in _all_m.matters_iterator:
+        for m in self._all_m.matters_iterator:
             # print(m.formula)
             self._all_f.append(m.formula)
         # print("Start: (%d)" % (len(self._all_f)))
@@ -56,11 +55,12 @@ class Picker:
         # 将已挑选的物质列表中的分子式挑选出来组成 新的列表
         # 【重要】新的列表中仅包含分子式
         picked_formula_list = []
-        if not (picked_matter_list is None):
+        if picked_matter_list:
             for m in picked_matter_list:
                 picked_formula_list.append(m.formula)
 
         # 重置剩余分子式列表，设置初始值为全部分子式
+        self._remained_f = []
         self._remained_f = self._all_f.copy()
 
         # 将已挑选的物质 按分子式一一排除
