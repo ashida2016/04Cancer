@@ -51,7 +51,8 @@ class MattersTable:
         # 将CSV内容转化为二维数组
         data = np.array(df.loc[:, :])
 
-        _matters = []
+        self._matters = []
+        self._count = 0
         # 顺序读取所有元素，并初始化每个实例化的类
         for row in data:
             # 新生成一个空白的物质类

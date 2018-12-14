@@ -38,7 +38,7 @@ class Picker:
 
         # 获取所有的物质分子式，组成列表
         self._all_f = []
-        for m in self._all_m.matters_iterator:
+        for m in self._all_m._matters:
             # print(m.formula)
             self._all_f.append(m.formula)
         # print("Start: (%d)" % (len(self._all_f)))
