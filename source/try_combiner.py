@@ -80,25 +80,48 @@ after_reaction = cmb.mix2(a, m1, b, m2)
 print("反应后的原子字典为：", end='')
 print(after_reaction)
 
-# 练习四：随意组合 2 种不同物质各n份，假设它们无论如何配比都能起反应，求每次反应后的原子种类及数量
+# 练习四：从物质表中随意选取 2 种不同物质各n份，假设它们无论如何配比都能起反应，求每次反应后的原子种类及数量
 print("---练习四---")
+# 清空已挑选物质列表
 m_already_done =[]
 
-a_max = 3
-b_max = 3
+# 随机挑选 2 个不同物质
+m1 = picker.pick_one_matter(m_already_done)
+m2 = picker.pick_one_matter(m_already_done)
 
+# 确定物质份数并开始循环
+a_max = 2
+b_max = 2
+count = 1
 for a in range(1, a_max + 1):
     for b in range(1, b_max + 1):
-        # 随机挑选 2 个不同物质
-        m1 = picker.pick_one_matter(m_already_done)
-        m2 = picker.pick_one_matter(m_already_done)
-
         # 自动生成化学反应式
         s = cmb.make_formula_of2(a, m1, b, m2)
 
         # 列出反应物的原子种类与数量
         after_reaction = cmb.mix2(a, m1, b, m2)
 
-        print("反应式： %s  --> 反应后的原子字典为：" %(s), end='')
+        # 打印输出
+        print("反应式(%d)：%s  --> " % (count, s), end='')
         print(after_reaction)
+
+        # 计数器
+        count += 1
+
+# 练习五：从物质表中随意选取 2个不重复的物质各，列举所有的组合
+print("---练习五---")
+
+# 生成一张物质表
+mt = MattersTable()
+for i in range(mt._count):
+    for j in range(i + 1, mt._count):
+        m1 = Matter()
+        m1 = mt._matters[i]
+
+        m2 = Matter()
+        m2 = mt._matters[j]
+        print(" %s + %s" %(m1.formula, m2.formula))
+
+
+
 
