@@ -26,8 +26,14 @@ class Combiner:
 
     def mix2(self, a, m1, b, m2):
 
-        e1 = m1.get_elements()
-        e2 = m2.get_elements()
+        if a > 0:
+            e1 = m1.get_elements()
+        else:
+            e1 = {}
+        if b > 0:
+            e2 = m2.get_elements()
+        else:
+            e2 = {}
 
         # 将两个原子字典合并为 1 个
         # 先将 e1 全盘复制过来，并乘以 份数a
@@ -53,12 +59,25 @@ class Combiner:
         if a > 1:
             s1 = str(a) + m1.formula
         else:
-            s1 = m1.formula
+            if a == 1:
+                s1 = m1.formula
+            else:
+                s1 = ''
 
         if b > 1:
             s2 = str(b) + m2.formula
         else:
-            s2 = m2.formula
+            if b == 1:
+                s2 = m2.formula
+            else:
+                s2 = ''
 
-        sf = s1 + " + " + s2
+        if s1 and s2:
+            sf = s1 + " + " + s2
+        else:
+            if s1:
+                sf = s1
+            else:
+                sf = s2
+
         return sf
